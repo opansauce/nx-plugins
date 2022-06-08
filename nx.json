@@ -9,18 +9,14 @@
       "dependencies": "*",
       "devDependencies": "*"
     },
-    ".eslintrc.json": "*"
+    ".eslintrc.json": "*",
+    ".github/workflows/workflow.yml": "*"
   },
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e"
-        ],
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
         "accessToken": "Y2I3MzliNjctMmUzNC00MmY3LTgwOGYtY2Q5NGMwMmUwNDYzfHJlYWQtd3JpdGU="
       }
     }
