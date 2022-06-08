@@ -1,0 +1,60 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/storybook-test-runner/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/storybook-test-runner",
+        "main": "packages/storybook-test-runner/src/index.ts",
+        "tsConfig": "packages/storybook-test-runner/tsconfig.lib.json",
+        "assets": [
+          "packages/storybook-test-runner/*.md",
+          {
+            "input": "./packages/storybook-test-runner/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/storybook-test-runner/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/storybook-test-runner",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./packages/storybook-test-runner",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "packages/storybook-test-runner/**/*.ts",
+          "packages/storybook-test-runner/generators.json",
+          "packages/storybook-test-runner/executors.json",
+          "packages/storybook-test-runner/package.json"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/storybook-test-runner"],
+      "options": {
+        "jestConfig": "packages/storybook-test-runner/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

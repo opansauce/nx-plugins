@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "storybook-test-runner",
+  "version": "0.0.1",
+  "generators": {
+    "storybook-test-runner": {
+      "factory": "./src/generators/storybook-test-runner/generator",
+      "schema": "./src/generators/storybook-test-runner/schema.json",
+      "description": "storybook-test-runner generator"
+    }
+  }
+}
