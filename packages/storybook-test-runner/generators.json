@@ -7,6 +7,11 @@
       "factory": "./src/generators/storybook-test-runner/generator",
       "schema": "./src/generators/storybook-test-runner/schema.json",
       "description": "storybook-test-runner generator"
+    },
+    "init": {
+      "factory": "./src/generators/init/generator",
+      "schema": "./src/generators/init/schema.json",
+      "description": "init generator"
     }
   }
 }
