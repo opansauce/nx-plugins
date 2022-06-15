@@ -1,6 +1,9 @@
-# storybook-test-runner
+# @opansauce/storybook-test-runner
 
-This library was generated with [Nx](https://nx.dev).
+[![License](https://img.shields.io/npm/l/@opansauce/storybook-test-runner.svg?style=flat-square)]()
+[![NPM Version](https://badge.fury.io/js/%40opansauce%2Fstorybook-test-runner.svg)](https://www.npmjs.com/@opansauce/storybook-test-runner)
+
+This NX plugin provides basic support for [the new Storybook feature: interaction testing](https://storybook.js.org/docs/angular/writing-tests/interaction-testing). For now it provides a basic generator to add a new 'e2e' target for your UI libraries. Writing a Play function and running interaction tests in CI will make sure your stories won't become stale and break at runtime.
 
 ## Getting started
 
