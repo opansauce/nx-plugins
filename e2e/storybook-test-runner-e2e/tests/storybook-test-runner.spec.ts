@@ -1,6 +1,7 @@
 import {
   checkFilesExist,
   ensureNxProject,
+  readFile,
   readJson,
   runNxCommandAsync,
   uniq,
@@ -26,39 +27,30 @@ describe('storybook-test-runner e2e', () => {
     runNxCommandAsync('reset');
   });
 
-  it('should create storybook-test-runner', async () => {
+  it('should create new configuration', async () => {
     const project = uniq('storybook-test-runner');
+    await runNxCommandAsync(`generate @nrwl/angular:library ${project}`);
     await runNxCommandAsync(
-      `generate @opansauce/storybook-test-runner:storybook-test-runner ${project}`
+      `generate @nrwl/angular:storybook-configuration ${project} --configureCypress false`
     );
-    const result = await runNxCommandAsync(`build ${project}`);
-    expect(result.stdout).toContain('Executor ran');
-  }, 120000);
+    await runNxCommandAsync(
+      `generate @opansauce/storybook-test-runner:init ${project}`
+    );
+    expect(() => checkFilesExist(`libs/${project}/project.json`)).not.toThrow();
+    const file = readFile(`libs/${project}/project.json`);
+    const parsedFile = JSON.parse(file);
+    expect(parsedFile.targets['test-storybook']).toBeDefined();
+    expect(parsedFile.targets['e2e']).toBeDefined();
 
-  describe('--directory', () => {
-    it('should create src in the specified directory', async () => {
-      const project = uniq('storybook-test-runner');
-      await runNxCommandAsync(
-        `generate @opansauce/storybook-test-runner:storybook-test-runner ${project} --directory subdir`
-      );
-      expect(() =>
-        checkFilesExist(`libs/subdir/${project}/src/index.ts`)
-      ).not.toThrow();
-    }, 120000);
-  });
-
-  describe('--tags', () => {
-    it('should add tags to the project', async () => {
-      const projectName = uniq('storybook-test-runner');
-      ensureNxProject(
-        '@opansauce/storybook-test-runner',
-        'dist/packages/storybook-test-runner'
-      );
-      await runNxCommandAsync(
-        `generate @opansauce/storybook-test-runner:storybook-test-runner ${projectName} --tags e2etag,e2ePackage`
-      );
-      const project = readJson(`libs/${projectName}/project.json`);
-      expect(project.tags).toEqual(['e2etag', 'e2ePackage']);
-    }, 120000);
-  });
+    const packageJson = readFile('package.json');
+    const parsedPackageJson = JSON.parse(packageJson);
+    const keys = Object.keys(parsedPackageJson.devDependencies);
+    expect(keys.length).toBeGreaterThan(0);
+    expect(keys).toContain('@storybook/addon-interactions');
+    expect(keys).toContain('@storybook/jest');
+    expect(keys).toContain('@storybook/test-runner');
+    expect(keys).toContain('@storybook/testing-library');
+    expect(keys).toContain('concurrently');
+    expect(keys).toContain('wait-on');
+  }, 300000);
 });
