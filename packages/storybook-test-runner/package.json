@@ -2,6 +2,7 @@
   "name": "@opansauce/storybook-test-runner",
   "version": "0.0.1",
   "main": "src/index.js",
+  "license": "MIT",
   "generators": "./generators.json",
   "executors": "./executors.json"
 }
