@@ -12,6 +12,7 @@
         "tsConfig": "packages/storybook-test-runner/tsconfig.lib.json",
         "assets": [
           "packages/storybook-test-runner/*.md",
+          "LICENSE",
           {
             "input": "./packages/storybook-test-runner/src",
             "glob": "**/!(*.ts)",
